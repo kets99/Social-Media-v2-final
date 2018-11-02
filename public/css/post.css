@@ -1,0 +1,58 @@
+
+.postbox{
+    opacity: 0;
+    height: 0;
+    text-align: center;
+    position: fixed;
+    width: 50%;
+    top: 10%;
+    left: 25%;
+    box-shadow: 8px 6px 8px black;
+    border: 2px solid ;
+    background-color: rgba(0,0,0,0.9);
+    padding: 1% 0%;
+    z-index: 3;
+    transition-duration: 500ms;
+}
+
+.postinfo{
+    margin: 4% auto;
+    font-family: 'Raleway', sans-serif;
+    font-size: 2em;
+}
+
+textarea{
+    color:black;
+}
+
+
+.postimg{
+    width: 30%;
+    height: 30%;
+    padding: 2%;
+    margin: 3% 33% 2% 37%;
+    background-image: url(../icons/photo.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.postfile{
+    display: none;
+}
+
+.postbutton{
+    background-color: blueviolet;
+    border: none;
+    width: 15%;
+    height: 8%;
+    color: aliceblue;
+    margin: 4% 3% 0 3%;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2em;
+    border-radius: 8%;
+    box-shadow: 0px 0px 8px white;
+}
+
+.postbutton:hover{
+    box-shadow: none
+}

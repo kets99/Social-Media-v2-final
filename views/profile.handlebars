@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <title>
+        Test
+        </title>
+        <link rel="stylesheet" type="text/css" href="../css/profileStyl.css"> 
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    </head>
+    
+    <body>
+            <div class="cover">
+                <img alt2="pics" src="../images/Zayn-malik%202.jpg">
+            </div>
+
+            <div class="profile" style="background-image: url('{{userdp}}')">
+                <div class="profileOverlay"></div>
+                <div class="img">
+                    <img alt="pic" src="{{userdp}}" > 
+                </div>
+                <div class="profileName">
+                    {{name}}
+                </div>
+                
+                <div>
+                    <p>
+                        Followers : 300k
+                        <br><br>
+                        Views : 1M<br>
+                        {{#if editprofile}}
+                        <a href="#" class=" button editbutton">Edit Profile</a>
+                        {{/if}}
+                        <a href="/signout" class=" button editbutton">Sign Out</a>
+
+                    </p>
+                </div>
+                
+            </div>
+        
+            <div class ="info">
+                    <div class="section">
+                        <a href="#section" class=" button link ">Timeline</a>
+                        <a href="#about" class=" button link">About</a>
+                        <a href="#friends" class=" button link">Friends</a>
+                    </div>
+
+                
+                        <div class="posts">
+                            {{#if err}} {{err}} {{/if}}
+                            {{#each posts}}
+                            <div class="post" id="{{this.postid}}">
+                                <div class="postimage"><img alt2="pics" src="{{this.postimg}}"></div>
+                                <a class="postedby" href="/profile/{{this.userid}}">{{this.postedby}}</a>
+                                <p class="postcaption">{{this.caption}} </p>
+                                <div class="likecomment">
+                                    <button class="button likebutton" href="#">Like</button>
+                                    <p>{{this.nooflikes}} likes {{this.noofcomments}} comments</p>
+                                    <a href="/post/show/{{this.postid}}" class="button commentbutton">Comment</a>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+
+
+
+                    <div id="about" >
+                        Lives in <b>Mumbai, Maharashtra</b><br>
+                        From <b>Dahisar, India</b><br>
+                        Relationship Status <b>Single</b><br>
+                        Studied Computer Science and Engineering at KJ Somaiya College Of Engineering And Information Technology
+                    </div>
+
+                    <div id="friends">
+                        {{#each following}}
+                            <div class="friend">
+                                <div class="friendImage">
+                                    <img alt="pics" src="{{this.userdp}}">
+                                </div>
+                                <div class="friendName">
+                                    {{this.username}}
+                                    {{#if unfollow}}
+                                    <a class="button">Unfollow</a>  
+                                    {{/if}}
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+            </div>
+        <script>
+            
+
+            var posts = document.querySelectorAll('.post');
+            console.log(posts);
+            for(var i=0;i<posts.length;i++){
+                var likebutton = posts[i].children[3].children[0];
+                likebutton.addEventListener('click',(event)=>{
+                    var postid = event.srcElement.parentElement.parentElement.getAttribute('id');
+                    console.log('id',postid);
+                    event.srcElement.disabled=true;
+                    event.srcElement.style.backgroundColor='black'; 
+                    event.srcElement.style.color='white'; 
+                    event.srcElement.style.boxShadow='0px 0px';
+                    fetch('/post/like',{
+                        method:'post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body : JSON.stringify({
+                            postid,  
+                        }),
+                    });
+                });
+            }
+
+
+            var suggestions = document.querySelectorAll('.friend');
+            console.log(suggestions[0]);
+            for(var i=0;i<suggestions.length;i++){
+                suggestions[i].children[1].children[0].addEventListener('click',(e)=>{
+                    var img = e.srcElement.parentElement.parentElement.children[0].children[0].getAttribute('src');
+                    fetch('/unfollow',{
+                        method:'post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body : JSON.stringify({
+                            img,  
+                        }),
+                    });
+                    e.srcElement.parentElement.parentElement.style.display='none'
+                });
+            }
+        </script>    
+    </body>
+</html>

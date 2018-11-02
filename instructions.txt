@@ -1,0 +1,10 @@
+Prerequisites ::
+Download latest version of Node 
+
+Steps
+Download zip
+Unzip
+Open command prompt within that directory 
+Fire npm install
+Then node app.js
+on browser go to localhost:3000
