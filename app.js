@@ -21,7 +21,7 @@ require('./passportjs')(app);
 //Routing
 app.use('/', handler);
 
-app.listen(3000,()=>{
+app.listen(process.env.PORT,()=>{
     console.log('listening');
 });
 
